@@ -1,0 +1,131 @@
+# 🔐 Browser Extensions Security: Interview Q&A
+
+This document compiles common interview questions and detailed answers regarding the security risks and best practices associated with browser extensions.
+
+---
+
+## 1. How can browser extensions pose security risks?
+
+Extensions can execute code in the browser context, which means they can access:
+
+* **Browsing history**
+* **Login credentials** (via forms or cookies)
+* **Sensitive information** entered on websites
+
+### Malicious extensions can:
+
+* Inject unwanted ads or pop-ups.
+* Redirect traffic to phishing or malware sites.
+* Track user behavior for profiling or identity theft.
+
+> **Risk depends** on the permissions granted and whether the extension is trusted and actively maintained.
+>
+> **Technical Note:** Extensions with access to `tabs` or `webRequest` APIs can monitor and modify HTTP requests.
+
+---
+
+## 2. What permissions should raise suspicion?
+
+Permissions that are not clearly necessary for the extension's core function are a major red flag:
+
+* **Access to all website data** – unnecessary for a simple extension.
+* **Read and modify clipboard content** – can steal copied passwords or sensitive data.
+* **Access to browsing history** – unless needed for its core function (e.g., a history manager).
+* **Ability to download and execute files** – can silently install malware.
+* **Unrelated permissions** – if the feature doesn’t need them, this is highly suspicious.
+
+> **Tip:** Check browser store reviews and developer credibility when permissions seem excessive.
+
+---
+
+## 3. How to safely install browser extensions?
+
+Follow these practices to minimize risk during installation:
+
+* Only install extensions from **official web stores** (Chrome Web Store, Firefox Add-ons).
+* **Check the following:**
+    * **Developer reputation**
+    * **User reviews and ratings**
+    * **Last update date** (regular updates indicate active maintenance)
+* Avoid third-party downloads or “cracked” versions.
+* Grant only the **necessary permissions** required for the extension to function.
+* Periodically review installed extensions for relevance and safety.
+
+---
+
+## 4. What is extension sandboxing?
+
+**Sandboxing isolates an extension’s code from the browser core and other extensions.**
+
+This isolation is a security mechanism designed to prevent:
+
+* Malicious extensions from directly accessing browser memory or OS files.
+* Cross-extension attacks (where one extension compromises another).
+
+> In Chrome/Firefox, **content scripts** run in **isolated worlds**. They can access the page DOM but are blocked from touching other extension code or internal browser processes.
+>
+> **Technical Point:** Background scripts, content scripts, and popup scripts have different scopes and privileges to enhance security.
+
+---
+
+## 5. Can extensions steal passwords?
+
+**Yes**, they can, especially if they have permissions to read page data or monitor form submissions.
+
+**Examples of malicious extensions:**
+
+* Fake ad blockers or coupon extensions
+* Malicious password managers
+
+They can capture credentials entered in web forms or inject keyloggers directly into the webpage.
+
+### Mitigation:
+
+1.  Use extensions from **trusted developers**.
+2.  Prefer **browsers’ built-in password managers**.
+3.  Avoid extensions requesting **“read and change all data”** unless absolutely necessary.
+
+---
+
+## 6. How to update extensions securely?
+
+Secure updates are critical as developers often patch vulnerabilities.
+
+* Enable **auto-updates** in the browser (default in Chrome/Firefox).
+* Do **not** download updates from third-party websites.
+* Check version **changelogs or update notes** on the official store for transparency.
+* **Remove extensions that stop receiving updates**, as outdated code may have known security vulnerabilities.
+
+---
+
+## 7. Difference between extensions and plugins?
+
+| Feature | Extensions | Plugins |
+| :--- | :--- | :--- |
+| **Definition** | Small software added to browser to add features or enhance UI. | External software to handle specific content types (e.g., Flash, Java). |
+| **Scope** | Runs within browser sandbox. | Runs as a separate process or application. |
+| **Security** | Mostly sandboxed, with limited access based on permissions. | **Higher risk**, full system access in old implementations. |
+| **Usage** | Ad blockers, Wappalyzer, Grammarly. | PDF viewer, Flash player (mostly obsolete). |
+| **Updates** | Browser-managed. | Often manually installed, **now mostly deprecated**. |
+
+> **Key:** Modern browsers have moved away from plugins; extensions are preferred and are generally safer due to sandboxing.
+
+---
+
+## 8. How to report malicious extensions?
+
+Reporting helps browser teams remove malicious extensions quickly.
+
+### Firefox:
+
+* Go to the extension page → click **“Report Abuse”** → choose reason (malware, phishing, privacy violation).
+
+### Chrome:
+
+* Open Chrome Web Store → navigate to extension → click **“Report Abuse”**.
+
+### What to provide in the report:
+
+* Behavior observed
+* Screenshots if possible
+* Permissions that seem abusive
